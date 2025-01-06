@@ -81,13 +81,13 @@
 <body>
   <div class="chat-container">
     <div id="onlineCount">在线人数: *</div>
-    
     <div id="nickname-error" class="nickname-error" style="display: none;">
       请输入昵称并点击右上角保存按钮
     </div>
     <div class="nickname-edit-container">
       <button onclick="toggleNicknameEdit()">修改昵称</button>
-       当前昵称 : <input id="nickname" type="text" placeholder="请输入昵称" disabled />
+      <span>当前昵称 : </span>
+      <input id="nickname" type="text" placeholder="请输入昵称" disabled />
     </div>
     <div id="tip1">如果使用手机端，发送消息可能需要下滑 (10秒后自动隐藏)</div>
     <div id="motd1">[公告] 本网站运行在本地，当主机电脑关闭时，这个网站也不能使用。(突然发不了消息也是因为这个) (30秒后自动隐藏)</div>
@@ -212,11 +212,11 @@
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    // Listen for incoming messages and ensure the chat window scrolls down
+    // 监听收到的消息，并确保聊天窗口向下滚动
     socket.on('chatMessage', function(msg) {
       const newMessage = { nickname: msg.nickname, text: msg.text, timestamp: Date.now() };
       messages.push(newMessage);
-      renderMessages();  // Re-render messages and scroll to the bottom
+      renderMessages();  // 重新呈现消息并滚动到底部
     });
 
     // Send a new message
