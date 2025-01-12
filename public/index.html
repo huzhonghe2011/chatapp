@@ -10,15 +10,16 @@
       margin: 0;
       padding: 0;
       background-color: #f4f4f9;
-      display: flex;
+      display: flex;<body>
       flex-direction: column;
-      min-height: 100vh;
+      height: 100vh;
     }
     .chat-container {
-      flex-grow: 1;
+      flex: 1;
       display: flex;
       flex-direction: column;
       padding: 10px;
+      height: 100;
     }
     .messages {
       flex-grow: 1;
@@ -27,15 +28,14 @@
       margin-bottom: 10px;
       padding: 10px;
       background-color: white;
-      height: 100%;
+      max-height: 100vh;  /* 设置最大高度，避免容器过高 */
     }
     .input-container {
       display: flex;
       justify-content: space-between;
-      margin-top: 10px; /* 给输入框和按钮留些空间 */
     }
     input[type="text"] {
-      width: 75%;
+      width: 80%;
       padding: 10px;
       margin-right: 10px;
     }
