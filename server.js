@@ -22,6 +22,7 @@ function getChinaTime() {
   const options = {
     timeZone: 'Asia/Shanghai', // 设置时区为中国（上海）
     hour12: false, // 24小时制
+    year: 'numeric', // 显示完整年份
     month: '2-digit',
     day: '2-digit',
     hour: '2-digit',
@@ -30,14 +31,13 @@ function getChinaTime() {
   };
 
   const now = new Date();
-  const formatter = new Intl.DateTimeFormat('en', options);
+  const formatter = new Intl.DateTimeFormat('zh-CN', options);
   const formattedTime = formatter.format(now);
 
-  // 格式化输出：MMDD HH:MM:$SS，去掉年份部分
-  return formattedTime.replace(/[^\d]/g, '').replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '\$1\$2 \$3:\$4:\$5');
+  // 格式化输出：YYYY-MM-DD HH:MM:SS
+  return formattedTime.replace(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '\$1-\$2-\$3 \$4:\$5:\$6');
 }
 
-  
 // 定义一个连接事件，用于监听客户端的连接
 io.on('connection', (socket) => {
   console.log('一个用户连接: ' + socket.id);
