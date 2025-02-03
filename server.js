@@ -22,17 +22,20 @@ function getChinaTime() {
   const options = {
     timeZone: 'Asia/Shanghai', // 设置时区为中国（上海）
     hour12: false, // 24小时制
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
   };
 
   const now = new Date();
-  const year = now.getFullYear();
-  const month = (now.getMonth() + 1).toString().padStart(2, '0'); // 月份需要补充为两位数
-  const day = now.getDate().toString().padStart(2, '0'); // 日期需要补充为两位数
-  const hours = now.getHours().toString().padStart(2, '0'); // 小时需要补充为两位数
-  const minutes = now.getMinutes().toString().padStart(2, '0'); // 分钟需要补充为两位数
-  const seconds = now.getSeconds().toString().padStart(2, '0'); // 秒需要补充为两位数
+  const formatter = new Intl.DateTimeFormat('en', options);
+  const formattedTime = formatter.format(now);
 
-  return `${year}${month}${day} ${hours}:${minutes}:${seconds}`;
+  // 格式化输出：YYYYMMDD HH:mm:ss
+  return formattedTime.replace(/[^\d]/g, '').replace(/(\d{8})(\d{2})(\d{2})/, '\$1 \$2:\$3');
 }
 
 // 定义一个连接事件，用于监听客户端的连接
