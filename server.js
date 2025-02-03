@@ -17,6 +17,24 @@ const io = socketIo(server);
 // 设置静态文件目录
 app.use(express.static('public'));
 
+// 获取中国时间（北京时间）并按指定格式返回
+function getChinaTime() {
+  const options = {
+    timeZone: 'Asia/Shanghai', // 设置时区为中国（上海）
+    hour12: false, // 24小时制
+  };
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = (now.getMonth() + 1).toString().padStart(2, '0'); // 月份需要补充为两位数
+  const day = now.getDate().toString().padStart(2, '0'); // 日期需要补充为两位数
+  const hours = now.getHours().toString().padStart(2, '0'); // 小时需要补充为两位数
+  const minutes = now.getMinutes().toString().padStart(2, '0'); // 分钟需要补充为两位数
+  const seconds = now.getSeconds().toString().padStart(2, '0'); // 秒需要补充为两位数
+
+  return `${year}${month}${day} ${hours}:${minutes}:${seconds}`;
+}
+
 // 定义一个连接事件，用于监听客户端的连接
 io.on('connection', (socket) => {
   console.log('一个用户连接: ' + socket.id);
@@ -28,7 +46,7 @@ io.on('connection', (socket) => {
 
   // 监听来自客户端的聊天消息
   socket.on('chatMessage', (msg) => {
-    const timestamp = new Date().toLocaleString(); // 获取当前时间
+    const timestamp = getChinaTime(); // 获取中国时间
     const userId = socket.id;  // 获取用户的 socket.id
 
     console.log(`${msg.nickname} ${timestamp} 发送消息: ${msg.text}`);
